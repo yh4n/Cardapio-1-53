@@ -1,87 +1,182 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
-public class Cardapio {
+public class cardapio {
     public static void main(String[] args) {
-        Scanner leia = new Scanner(System.in);
+        //Variáveis
         String continuar = "s";
+        double total = 0.0;
+        String mensagem = "";
+        String nomeCliente;
+        List<String> pedidos = new ArrayList<>();
+
+        //Boas Vindas ao Cliente
+        JOptionPane.showMessageDialog(null, "BEM VINDO A PADARIA DO MAR", "GARÇOM", JOptionPane.PLAIN_MESSAGE);
+        nomeCliente = JOptionPane.showInputDialog(null, "Qual o seu nome?", "GARÇOM", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Aqui está o cardapio " + nomeCliente, "GARÇOM", JOptionPane.PLAIN_MESSAGE);
 
         while (continuar.equalsIgnoreCase("s")) {
-            System.out.println("Escolha entre:\n'1' para salgado:\n'2' para doces:\n'3' para bebidas:\n'4' para sair ");
-            int escolha = leia.nextInt();
 
-            switch (escolha) {
-                case 1:
+            //Menu principal
+            String[] opcoesMenu = {"Salgado", "Doces", "Bebidas", "Pedidos", "Sair"};
+            String escolhaMenu = (String) JOptionPane.showInputDialog(
+                null,
+                "Escolha uma categoria:",
+                "Cardápio",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opcoesMenu,
+                opcoesMenu[0]);
+
+            if (escolhaMenu == null || escolhaMenu.equals("Sair")) {
+                break;
+            }
+
+            switch (escolhaMenu) {    
+                case "Salgado":
+                    //Menu dos salgados
                     boolean voltarSalgado = false;
                     while (!voltarSalgado) {
-                        System.out.println("Salgado:\n'1' = Pastel R$6,50;\n'2' = Coxinha R$5,00;\n'3' = Risoles R$6,00;\n'4' voltar:");
-                        int salgado = leia.nextInt();
-                        switch (salgado) {
-                            case 1:
-                                System.out.println("Um Pastel adicionado ao carrinho!");
-                                break;
-                            case 2:
-                                System.out.println("Uma Coxinha adicionada ao carrinho!");
-                                break;
-                            case 3:
-                                System.out.println("Um Risoles adicionado ao carrinho!");
-                                break;
-                            case 4:
-                                voltarSalgado = true;
-                                break;
-                            default:
-                                System.out.println("Opção inválida, tente novamente.");
+                        String[] opcoesSalgado = {"Pastel - R$6,50", "Coxinha - R$5,00", "Risoles - R$6,00", "Voltar"};
+                        String escolhaSalgado = (String) JOptionPane.showInputDialog(
+                            null,
+                            "Escolha um salgado:",
+                            "Salgados",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            opcoesSalgado,
+                            opcoesSalgado[0]);
+
+                        if (escolhaSalgado == null || escolhaSalgado.equals("Voltar")) {
+                            voltarSalgado = true;
+                        } else {
+
+                            switch (escolhaSalgado) {
+                                case "Pastel - R$6,50":
+                                    JOptionPane.showMessageDialog(null, "Um Pastel adicionado aos pedidos!");
+                                    total += 6.50;
+                                    pedidos.add("Pastel: R$6,50");
+                                    break;
+                                case "Coxinha - R$5,00":
+                                    JOptionPane.showMessageDialog(null, "Uma Coxinha adicionada aos pedidos!");
+                                    total += 5.00;
+                                    pedidos.add("Coxinha: R$5,00");
+                                    break;
+                                case "Risoles - R$6,00":
+                                    JOptionPane.showMessageDialog(null, "Um Risoles adicionado aos pedidos!");
+                                    total += 6.00;
+                                    pedidos.add("Risoles: R$6,00");
+                                    break;
+                            }
                         }
                     }
+                    //Guarda os salgados pedidos
+                    for(int i = 0; i < pedidos.size(); i++) {
+                        mensagem += pedidos.get(i) + "\n";
+                    }
+                    pedidos.clear();
                     break;
-                    case 2:
+
+                case "Doces":
+                    //Menu dos doces
                     boolean voltarDoce = false;
                     while (!voltarDoce) {
-                        System.out.println("Doce:\n'1' = Paçoca R$3,50;\n'2' = Amansa Sogra R$6,50;\n'3' = Cocada R$4,00;\n'4' voltar:");
-                        int Doce = leia.nextInt();
-                        switch (Doce) {
-                            case 1:
-                                System.out.println("Uma Paçoca adicionado ao carrinho!");
-                                break;
-                            case 2:
-                                System.out.println("Uma Amansa Sogra adicionada ao carrinho!");
-                                break;
-                            case 3:
-                                System.out.println("Uma Cocada adicionado ao carrinho!");
-                                break;
-                            case 4:
-                                voltarDoce = true;
-                                break;
-                            default:
-                                System.out.println("Opção inválida, tente novamente.");
+                        String[] opcoesDoce = {"Paçoca - R$3,50", "Amansa Sogra - R$6,50", "Cocada - R$4,00", "Voltar"};
+                        String escolhaDoce = (String) JOptionPane.showInputDialog(
+                            null,
+                            "Escolha um doce:",
+                            "Doces",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            opcoesDoce,
+                            opcoesDoce[0]);
+
+                        if (escolhaDoce == null || escolhaDoce.equals("Voltar")) {
+                            voltarDoce = true;
+                        } else {
+
+                            switch (escolhaDoce) {
+                                case "Paçoca - R$3,50":
+                                    JOptionPane.showMessageDialog(null, "Uma Paçoca adicionada aos pedidos!");
+                                    total += 3.50;
+                                    pedidos.add("Paçoca: R$3,50");
+                                    break;
+                                case "Amansa Sogra - R$6,50":
+                                    JOptionPane.showMessageDialog(null, "Uma Amansa Sogra adicionada aos pedidos!");
+                                    total += 6.50;
+                                    pedidos.add("Amansa Sogra: R$6,50");
+                                    break;
+                                case "Cocada - R$4,00":
+                                    JOptionPane.showMessageDialog(null, "Uma Cocada adicionada aos pedidos!");
+                                    total += 4.00;
+                                    pedidos.add("Cocada: R$4,00");
+                                    break;
+                            }
                         }
                     }
+                    //Guarda os doces pedidos
+                    for(int i = 0; i < pedidos.size(); i++) {
+                        mensagem += pedidos.get(i) + "\n";
+                    }
+                    pedidos.clear();
                     break;
-                    case 3:
+
+                case "Bebidas":
                     boolean voltarBebida = false;
                     while (!voltarBebida) {
-                        System.out.println("Doce:\n'1' = Coca-cola R$10,00 o Litro;\n'2' = Suco natural R$10,00;\n'3' = Água R$4,00;\n'4' voltar:");
-                        int Bebida = leia.nextInt();
-                        switch (Bebida) {
-                            case 1:
-                                System.out.println("Uma Coca-cola adicionado ao carrinho!");
-                                break;
-                            case 2:
-                                System.out.println("Um Suco natural adicionada ao carrinho!");
-                                break;
-                            case 3:
-                                System.out.println("Uma Água adicionado ao carrinho!");
-                                break;
-                            case 4:
-                                voltarBebida = true;
-                                break;
-                            default:
-                                System.out.println("Opção inválida, tente novamente.");
+                        String[] opcoesBebida = {"Coca-cola - R$10,00", "Suco natural - R$10,00", "Água - R$4,00", "Voltar"};
+                        String escolhaBebida = (String) JOptionPane.showInputDialog(
+                            null,
+                            "Escolha uma bebida:",
+                            "Bebidas",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            opcoesBebida,
+                            opcoesBebida[0]);
+
+                        if (escolhaBebida == null || escolhaBebida.equals("Voltar")) {
+                            voltarBebida = true;
+                        } else {
+
+                            switch (escolhaBebida) {
+                                case "Coca-cola - R$10,00":
+                                    JOptionPane.showMessageDialog(null, "Uma Coca-cola adicionada aos pedidos!");
+                                    total += 10.00;
+                                    pedidos.add("Coca-Cola: R$10,00");
+                                    break;
+                                case "Suco natural - R$10,00":
+                                    JOptionPane.showMessageDialog(null, "Um Suco natural adicionado aos pedidos!");
+                                    total += 10.00;
+                                    pedidos.add("Suco Natural: R$10,00");
+                                    break;
+                                case "Água - R$4,00":
+                                    JOptionPane.showMessageDialog(null, "Uma Água adicionada aos pedidos!");
+                                    total += 4.00;
+                                    pedidos.add("Água: R$4,00");
+                                    break;
+                            }
                         }
                     }
-                        }
-                        break;
+                    //Guarda as bebidas pedidas
+                    for(int i = 0; i < pedidos.size(); i++) {
+                        mensagem += pedidos.get(i) + "\n";
                     }
-                    
+                    pedidos.clear();
+                    break;
+                //Mostra os pedidos selecionados
+                case "Pedidos":
+                    boolean voltarPedidos = false;
+                    if (!voltarPedidos) {
+                        JOptionPane.showMessageDialog(null, mensagem, "Pedidos", JOptionPane.PLAIN_MESSAGE);
+                    }else{
+                        voltarPedidos = true;
                 }
+            }
+        }
+        //Mostra a nota fiscal com os pedidos e o total a pagar
+        String notaFiscal = String.format("NOSSO ENDEREÇO: CASA DO MESTRE KAME\n" + "NOSSO TELEFONE: 81 4002-8922\n" + "=================\n"
+        + "CLIENTE: "+ nomeCliente + "\n=================\nPEDIDOS:\n" + mensagem + "=================\n" + "VALOR TOTAL: %.2f" + "\n=================", total);
+        JOptionPane.showMessageDialog(null, notaFiscal, "PADARIA DO MAR", JOptionPane.PLAIN_MESSAGE);
 }
-        
+}
